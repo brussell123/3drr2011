@@ -1,3 +1,6 @@
+Warning: this code is particularly fitted to the pompeii model.
+
+
 This directory contains the source code for the painting alignment
 project.
 

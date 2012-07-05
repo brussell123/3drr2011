@@ -11,6 +11,12 @@ INSTALLATION:
 4. To test the compiled code, run the "testBinaries.m" script.
 
 
+NEEDED LIBRARIES:
+
+1. libjpeg on mac:
+http://ethan.tira-thompson.com/Mac_OS_X_Ports.html
+
+
 
 ***********************************************************************
 OLD COMMENTS BELOW HERE...

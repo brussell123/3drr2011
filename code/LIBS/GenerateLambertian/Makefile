@@ -1,8 +1,10 @@
 # DEBUG = y
 TRIMESHDIR = ../trimesh2
 MAKERULESDIR = $(TRIMESHDIR)
-INCLUDES = -I$(TRIMESHDIR)/include -I../jpeg-8a/src/OUT/include
-LIBDIR = -L$(TRIMESHDIR)/lib.$(UNAME) -L../jpeg-8a/src/OUT/lib
+INCLUDES = -I$(TRIMESHDIR)/include -I/usr/local/include
+LIBDIR = -L$(TRIMESHDIR)/lib.$(UNAME)
+#INCLUDES = -I$(TRIMESHDIR)/include -I../jpeg-8a/src/OUT/include
+#LIBDIR = -L$(TRIMESHDIR)/lib.$(UNAME) -L../jpeg-8a/src/OUT/lib
 
 include $(MAKERULESDIR)/Makerules
 ifeq ($(UNAME),Win32)

@@ -1,5 +1,17 @@
 Warning: this code is particularly fitted to the pompeii model.
 
+INSTALLATION:
+
+1. Make sure that the bash environment variable MEX_PATH points to the
+location of the mex executable.  This can be set as follows within bash:
+
+export MEX_PATH=/Applications/MATLAB74/bin/mex
+
+2. 
+
+
+***********************************************************************
+OLD COMMENTS BELOW HERE...
 
 This directory contains the source code for the painting alignment
 project.

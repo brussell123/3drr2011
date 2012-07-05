@@ -8,6 +8,11 @@ cd('./code/LIBS/trimesh2');
 system('make');
 cd(homedir);
 
+% Compile OpenGL rendering code:
+cd('./code/LIBS/GenerateLambertian');
+system('make');
+cd(homedir);
+
 % Compile libANN:
 cd('./code/LIBS/ann_1.1.2');
 switch c

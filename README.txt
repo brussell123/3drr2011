@@ -2,12 +2,14 @@ Warning: this code is particularly fitted to the pompeii model.
 
 INSTALLATION:
 
-1. Make sure that the bash environment variable MEX_PATH points to the
-location of the mex executable.  This can be set as follows within bash:
+1. cd /path/to/3drr2011/
 
-export MEX_PATH=/Applications/MATLAB74/bin/mex
+2. Start Matlab.
 
-2. 
+3. Run "compile".
+
+4. To test the compiled code, run the "testBinaries.m" script.
+
 
 
 ***********************************************************************

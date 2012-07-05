@@ -37,7 +37,7 @@ switch c
   error('Can only compile mac or 64-bit linux for now.');
 end
 
-mex fastNN.cpp -I./code/LIBS/ann_1.1.2/include -L./code/LIBS/ann_1.1.2/lib -lANN
+mex fastNN.cpp -I./LIBS/ann_1.1.2/include -L./LIBS/ann_1.1.2/lib -lANN
 mex mex_hist_cost.cpp
 mex rayTrace.cpp
 mex updateDepths.cpp

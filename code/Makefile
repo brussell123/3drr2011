@@ -1,5 +1,5 @@
 # Set this to point to location of mex:
-MEX_BIN=/Applications/MATLAB74/bin/mex
+MEX_BIN=$(MEX_PATH)
 
 # Set this to point to installation of ann_1.1_char library:
 INCLUDE_ANN=./LIBS/ann_1.1.2

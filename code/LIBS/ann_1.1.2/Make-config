@@ -81,7 +81,7 @@ macosx-g++:
 	$(MAKE) targets \
 	"ANNLIB = libANN.a" \
 	"C++ = g++" \
-	"CFLAGS = -O3 -m32" \
+	"CFLAGS = -O3 -m32 -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5" \
 	"MAKELIB = libtool -static -o " \
 	"RANLIB = true"
 

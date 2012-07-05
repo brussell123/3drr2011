@@ -58,9 +58,9 @@ default:
 #-----------------------------------------------------------------------------
 alpha-g++ macosx-g++ linux-g++ sgi sunos4 sunos4-g++ sunos5 sunos5-g++ sunos5-g++-sl authors-debug authors-perf:
 	cd src ; $(MAKE) $@
-	cd test ; $(MAKE) $@
-	cd sample ; $(MAKE) $@
-	cd ann2fig ; $(MAKE) $@
+#	cd test ; $(MAKE) $@
+#	cd sample ; $(MAKE) $@
+#	cd ann2fig ; $(MAKE) $@
 
 #-----------------------------------------------------------------------------
 # Remove .o files and core files

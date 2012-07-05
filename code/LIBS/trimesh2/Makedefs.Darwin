@@ -2,6 +2,11 @@ CC = gcc
 CXX = g++
 AR = ar
 
+
+ifdef ARGS32
+      COPTS += -m32 -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5
+endif
+
 ifdef DEBUG
 	COPTS += -ggdb3
 	COPTS += -Wall -W -Wno-unused -Wno-sign-compare -Wno-unknown-pragmas

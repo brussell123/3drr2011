@@ -3,9 +3,7 @@ CXX = g++
 AR = ar
 
 
-ifdef ARGS32
-      COPTS += -m32 -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5
-endif
+COPTS += -m32 -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5
 
 ifdef DEBUG
 	COPTS += -ggdb3

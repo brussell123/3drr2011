@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Change these paths:
 SRC_PATH = './code';
-SRC_GIST = '/path/to/gist';
+SRC_GIST = './code/LIBS/gist';
 meshname = './pompeii_large66_poisson_clean.ply';
 points_name = './pompeii_pmvs_half_points_only.ply';
 meshColoredFileName = './pompeii_large66_sample_0.1_poisson_depth_14_clean_colored.ply';

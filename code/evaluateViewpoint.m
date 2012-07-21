@@ -1,4 +1,4 @@
-function [ProbInlier,Ninlier] = evaluateViewpoint(Pgt,P,X,imageSize,Ninliers)
+function [ProbInlier,Ninlier] = evaluateViewpoint(Pgt,P,X,imageSize,Ninliers,threshInlier)
 % Inputs:
 % Pgt - Ground truth camera matrix
 % P - Target camera matrices
@@ -9,8 +9,11 @@ function [ProbInlier,Ninlier] = evaluateViewpoint(Pgt,P,X,imageSize,Ninliers)
 % Ninlier - Percentage of inliers for each target camera
 
 % Parameters:
+if nargin < 6
 % $$$   threshInlier = 0.1; % Inlier threshold for a point (in image percentage)
-threshInlier = 0.05;
+    threshInlier = 0.05;
+end
+
 Npts = 100000; % Max number of 3D points to use (for efficiency)
 doDisplay = 0;
 

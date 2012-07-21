@@ -7,6 +7,7 @@ points_name = './pompeii_pmvs_half_points_only.ply';
 meshColoredFileName = './pompeii_large66_sample_0.1_poisson_depth_14_clean_colored.ply';
 CACHE_DIR = './cache';
 HOME_PAINTINGS = './Paintings';
+GT_DIR = './Pompeii_GT';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath(SRC_GIST);
@@ -45,3 +46,7 @@ P = ViewpointRetrieval(imgPainting,CameraStruct,OverlappingViews,[],1);
 % Synthesize viewpoint:
 knn = 2;
 imgCol = meshGenerateColored(squeeze(P(:,:,knn)),meshColoredFileName,imageSize);
+
+% Perform scene retrieval evaluation using ground truth:
+GT = load(fullfile(GT_DIR,sprintf('Painting%02d.mat',ndxPainting)));
+n = EvaluateViewpointRetrieval(meshColoredFileName,P,imageSize,GT.Pgt,GT.imageSize,BIN_RENDER);

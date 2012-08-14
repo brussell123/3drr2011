@@ -1,3 +1,5 @@
+UNAME := $(shell uname)
+
 # DEBUG = y
 TRIMESHDIR = ../trimesh2
 MAKERULESDIR = $(TRIMESHDIR)
@@ -15,9 +17,21 @@ SOURCES = generate_lambertian.cc generate_colored.cc
 OFILES = $(addprefix $(OBJDIR)/,$(SOURCES:.cc=.o))
 PROGS = point_view$(EXE) visibility_mesh$(EXE) generate_lambertian$(EXE) generate_colored$(EXE)
 
-default: $(PROGS)
+ifeq ($(UNAME), Linux)
+# linux:
+  LIBS += -ltrimesh -ljpeg
+endif
+ifeq ($(UNAME), Linux64)
+# 64-bit linux:
+  LIBS += -ltrimesh -ljpeg
+else
+# Mac:
+  LIBS += -ltrimesh -ljpeg -framework GLUT -framework OpenGL
+endif
 
-LIBS += -ltrimesh -ljpeg -framework GLUT -framework OpenGL
+#LIBS += -ltrimesh -ljpeg -framework GLUT -framework OpenGL
+
+default: $(PROGS)
 
 point_view$(EXE) : $(OBJDIR)/point_view.o
 	$(LINK) $(GLLIBS)

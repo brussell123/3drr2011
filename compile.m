@@ -34,8 +34,13 @@ try
   switch c
    case 'MACI'
     % mac:
-    mex mexReadPly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin -ltrimesh -lgomp
-    mex mexWritePly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin -ltrimesh -lgomp
+    if exist('./LIBS/trimesh2/lib.Darwin64','dir')
+      mex mexReadPly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin64 -ltrimesh -lgomp
+      mex mexWritePly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin64 -ltrimesh -lgomp
+    else
+      mex mexReadPly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin -ltrimesh -lgomp
+      mex mexWritePly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Darwin -ltrimesh -lgomp
+    end
    case 'GLNXA64'
     % 64-bit linux:
     mex mexReadPly.cpp -I./LIBS/trimesh2/include -L./LIBS/trimesh2/lib.Linux64 -ltrimesh -lgomp

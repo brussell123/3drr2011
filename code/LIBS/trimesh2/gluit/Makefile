@@ -8,6 +8,9 @@ include $(MAKERULESDIR)/Makerules
 ifeq ($(UNAME),Darwin)
 CFILES =
 else
+ifeq ($(UNAME),Darwin64)
+CFILES =
+else
 CFILES =	freeglut_callbacks.c \
 		freeglut_cursor.c \
 		freeglut_display.c \
@@ -30,6 +33,7 @@ CFILES =	freeglut_callbacks.c \
 		freeglut_teapot.c \
 		freeglut_videoresize.c \
 		freeglut_window.c
+endif
 endif
 
 CCFILES =	glui.cc \

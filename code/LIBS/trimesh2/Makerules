@@ -41,7 +41,8 @@ else
 
 	ARCH := $(shell uname -m)
 	ifeq ($(ARCH),x86_64)
-		UNAME := Linux64
+		UNAME := $(UNAME)64
+#		UNAME := Linux64
 	endif
 endif
 

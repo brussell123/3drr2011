@@ -17,6 +17,7 @@ load basis_pompeii.mat;
 
 BIN_VISIBILITY = fullfile(SRC_PATH,'LIBS/GenerateLambertian/visibility_mesh');
 BIN_POINT_VIEW = fullfile(SRC_PATH,'LIBS/GenerateLambertian/point_view');
+BIN_RENDER = fullfile(SRC_PATH,'LIBS/GenerateLambertian/generate_colored');
 
 % Sample cameras for virtual viewpoints:
 CameraStruct = SampleViewpoints(basis,bbFloor,CACHE_DIR);
@@ -45,7 +46,7 @@ P = ViewpointRetrieval(imgPainting,CameraStruct,OverlappingViews,[],1);
 
 % Synthesize viewpoint:
 knn = 2;
-imgCol = meshGenerateColored(squeeze(P(:,:,knn)),meshColoredFileName,imageSize);
+imgCol = meshGenerateColored(squeeze(P(:,:,knn)),meshColoredFileName,imageSize,BIN_RENDER);
 
 % Perform scene retrieval evaluation using ground truth:
 GT = load(fullfile(GT_DIR,sprintf('Painting%02d.mat',ndxPainting)));

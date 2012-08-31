@@ -64,7 +64,6 @@ for ii = 1:Niter
   % Get 3D model features:
   [V1,xmodel,tmodel,isRV,Xdense] = meshFeatures(Pstart,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize);
 
-  
   % Get current dense match cost:
   cost_start = matchingCost(Pstart,Xdense,tmodel,mapPainting,inlierThresh);
 
@@ -111,7 +110,8 @@ for ii = 1:Niter
 
   % Compute shape context match cost:
   ori_weight=0.1;
-  maxDist = 0.2;%0.1;%0.25;
+% $$$   maxDist = 0.2;%0.1;%0.25;
+  maxDist = 0.2*(0.5^(ii-1));
   costmat_shape = mex_hist_cost(BH1,BH2);
   theta_diff=repmat(t1,1,length(t2))-repmat(t2',length(t1),1);
   costmat_theta=0.5*(1-cos(2*theta_diff));
@@ -162,30 +162,51 @@ for ii = 1:Niter
 
   % Estimate camera parameters via RANSAC:
   NpointsAlg = 3;
-  [Pend,cost_ransac] = estimateCamera3d2d_K_ransac_v3(K,X,image2openglcoordinates(xx,imageSize),inlierThresh,NpointsAlg,Xdense,tmodel,mapPainting,Niter_ransac,Pstart,cost_start);
+  [Pend,cost_ransac] = estimateCamera3d2d_K_ransac_v3(K,X,image2openglcoordinates(xx,imageSize),inlierThresh,NpointsAlg,Xdense,tmodel,mapPainting,Niter_ransac);
 
-  if cost_ransac < cost_start
-    % Get dense set of inliers:
-    [nInliers,xPainting] = getDenseInliers(Pend,Xdense,tmodel,mapPainting,inlierThresh);
-    
-    % Update full camera parameters by minimizing geometric error using
-    % dense set of inliers:
-    Ptmp = estimateCamera3d2d_geometric(Pend,Xdense(:,nInliers),image2openglcoordinates(xPainting,imageSize),1);
-    
-    % Get current matching cost:
-    cost_end = matchingCost(Pend,Xdense,tmodel,mapPainting,inlierThresh);
-
-    display(sprintf('Start cost: %0.4f; after ransac: %0.4f; after dense: %0.4f',cost_start,cost_ransac,cost_end));
+  % Get dense set of inliers:
+  [nInliers,xPainting] = getDenseInliers(Pend,Xdense,tmodel,mapPainting,inlierThresh);
   
-    if cost_end > cost_ransac
-      cost_end = cost_ransac;
-    else
-      Pend = Ptmp;
-    end
-  else
-    cost_end = cost_ransac;
+  % Update full camera parameters by minimizing geometric error using
+  % dense set of inliers:
+  Pend = estimateCamera3d2d_geometric(Pend,Xdense(:,nInliers),image2openglcoordinates(xPainting,imageSize),1);
+  
+  % Get current matching cost:
+  cost_end = matchingCost(Pend,Xdense,tmodel,mapPainting,inlierThresh);
+  
+  display(sprintf('Start cost: %0.4f; after ransac: %0.4f; after dense: %0.4f',cost_start,cost_ransac,cost_end));
+
+  if cost_end >= cost_start
+    cost_end = cost_start;
+    Pend = Pstart;
     display(sprintf('Start cost: %0.4f; after ransac: %0.4f; no dense',cost_start,cost_ransac));
   end
+  
+% $$$   if cost_ransac < cost_start
+% $$$     % Get dense set of inliers:
+% $$$     [nInliers,xPainting] = getDenseInliers(Pend,Xdense,tmodel,mapPainting,inlierThresh);
+% $$$ 
+% $$$     % Update full camera parameters by minimizing geometric error using
+% $$$     % dense set of inliers:
+% $$$     Ptmp = estimateCamera3d2d_geometric(Pend,Xdense(:,nInliers),image2openglcoordinates(xPainting,imageSize),1);
+% $$$       
+% $$$     % Get current matching cost:
+% $$$     cost_end = matchingCost(Ptmp,Xdense,tmodel,mapPainting,inlierThresh);
+% $$$ % $$$     cost_end = matchingCost(Pend,Xdense,tmodel,mapPainting,inlierThresh);
+% $$$ 
+% $$$     display(sprintf('Start cost: %0.4f; after ransac: %0.4f; after dense: %0.4f',cost_start,cost_ransac,cost_end));
+% $$$   
+% $$$     if cost_end > cost_ransac
+% $$$       cost_end = cost_ransac;
+% $$$     else
+% $$$       Pend = Ptmp;
+% $$$     end
+% $$$   else
+% $$$ % $$$     cost_end = cost_ransac;
+% $$$     cost_end = cost_start;
+% $$$     Pend = Pstart;
+% $$$     display(sprintf('Start cost: %0.4f; after ransac: %0.4f; no dense',cost_start,cost_ransac));
+% $$$   end
   
   % Display initial set of inliers
   if do_display

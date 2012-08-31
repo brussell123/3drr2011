@@ -1,4 +1,4 @@
-function [P,cost] = estimateCamera3d2d_K_ransac_v3(K,X,x,inlierThresh,NpointsAlg,Xdense,theta,mapPainting,Niter,P_start,cost_start)
+function [P,cost] = estimateCamera3d2d_K_ransac_v3(K,X,x,inlierThresh,NpointsAlg,Xdense,theta,mapPainting,Niter)
 % Estimate camera matrix given calibration matrix K and 3D<->2D
 % correspondences.
 
@@ -9,16 +9,6 @@ end
 
 if nargin < 5
   NpointsAlg = 4; % Number of points to solve for (3 or 4)
-end
-if nargin < 10
-  P = [];
-else
-  P = P_start;
-end  
-if nargin < 11
-  cost = inf;
-else
-  cost = cost_start;
 end
 
 N = size(x,2);
@@ -33,6 +23,28 @@ if size(Xdense,1) < 4
   Xdense = [Xdense; ones(1,size(Xdense,2))];
 end
 
+% Compute distance transform of painting edges:
+Nedges = zeros(1,size(mapPainting,3),'int32');
+for i = 1:size(mapPainting,3)
+  mm = squeeze(mapPainting(:,:,i));
+  Nedges(i) = sum(sum(mm));
+  [distMap(:,:,i),nn] = bwdist(mm,'euclidean');
+  map = zeros(size(mm));
+  mm = find(mm);
+  map(mm) = 1:length(mm);
+  ndxMap(:,:,i) = map(nn);
+end
+distMap = single(distMap);
+ndxMap = int32(ndxMap);
+
+% $$$ for i = 1:size(mapPainting,3)
+% $$$   [distMap(:,:,i),ndxMap(:,:,i)] = bwdist(squeeze(mapPainting(:,:,i)),'euclidean');
+% $$$ end
+% $$$ distMap = single(distMap);
+% $$$ ndxMap = int32(ndxMap);
+
+P = [];
+cost = inf;
 for i = 1:Niter
   display(sprintf('%d out of %d: %f',i,Niter,cost));
 
@@ -69,7 +81,9 @@ for i = 1:Niter
       Pi = squeeze(allP(:,:,j));
 
       % Score camera matrix proposal:
-      cost_i = matchingCost(Pi,Xdense,theta,mapPainting,inlierThresh);
+      cost_i = fastMatchingCost(distMap,ndxMap,Nedges,Pi,Xdense,theta,inlierThresh);
+% $$$       cost_i = matchingCost(Pi,Xdense,theta,mapPainting,inlierThresh);
+
       if cost_i < cost
         cost = cost_i;
         P = Pi;
@@ -77,5 +91,8 @@ for i = 1:Niter
     end
   end
 end
+
+% Get final matching cost:
+cost = matchingCost(P,Xdense,theta,mapPainting,inlierThresh);
 
 display(sprintf('Matching cost: %f',cost));

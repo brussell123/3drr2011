@@ -95,8 +95,10 @@ if (B^2-A*C)>=0
   W = (2*(B*E-C*D)/C/sqrt(B^2-A*C)-2*E/C)*c^2/b^2*cos(beta)-c^2/b^2*((B*E-C*D)/C/sqrt(B^2-A*C)-E/C)^2+(b^2-c^2)/b^2;
 
   if ~isreal(U) || ~isreal(V) || ~isreal(W)
-    display('U,V,W not real');
-    keyboard;
+    P = [];
+    return;
+% $$$     display('U,V,W not real');
+% $$$     keyboard;
   end
   
   if (V^2-4*U*W)>=0
@@ -167,6 +169,10 @@ for i = 1:length(s1)
   X = X-repmat(Xmu,1,N);
 
   %%%%% NEW BEGIN
+  if any(isinf(x(:))) || any(isnan(x(:))) || any(isinf(X(:))) || any(isnan(X(:)))
+    continue;
+  end
+  
   % Compute SVD of data:
   [U1,S1,V1] = svd(x);
   [U2,S2,V2] = svd(X);

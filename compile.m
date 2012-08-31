@@ -53,6 +53,7 @@ try
   mex mex_hist_cost.cpp
   mex rayTrace.cpp
   mex updateDepths.cpp
+  mex minAssign.cpp
   cd(homedir);
 
 catch

@@ -13,9 +13,9 @@ ifeq ($(UNAME),Win32)
   COPTS += -mwindows
 endif
 
-SOURCES = generate_lambertian.cc generate_colored.cc
+SOURCES = generate_lambertian.cc generate_colored.cc rtsc.cc apparentridge.cc
 OFILES = $(addprefix $(OBJDIR)/,$(SOURCES:.cc=.o))
-PROGS = point_view$(EXE) visibility_mesh$(EXE) generate_lambertian$(EXE) generate_colored$(EXE)
+PROGS = point_view$(EXE) visibility_mesh$(EXE) generate_lambertian$(EXE) generate_colored$(EXE) rtsc$(EXE)
 
 ifeq ($(UNAME), Linux)
 # linux:
@@ -43,6 +43,9 @@ generate_colored$(EXE) : $(OBJDIR)/generate_colored.o
 	$(LINK) $(GLLIBS)
 
 generate_lambertian$(EXE) : $(OBJDIR)/generate_lambertian.o
+	$(LINK) $(GLLIBS)
+
+rtsc$(EXE) : $(OBJDIR)/rtsc.o $(OBJDIR)/apparentridge.o
 	$(LINK) $(GLLIBS)
 
 clean :

@@ -1,4 +1,4 @@
-function [V,x,t,isRV,XX] = meshFeatures(P,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize)
+function [V,x,t,isRV,XX] = meshFeatures(P,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize,BIN_LINE)
 % Inputs:
 % P
 % vertices
@@ -22,7 +22,7 @@ Norient = 8; % Number of edge orientations
 angBins = linspace(0,pi,Norient+1);
 
 % Get ridges&valleys and occlusion contours for viewpoint:
-[lines_all,lines_rv,lines_occ] = meshLineDrawing(P,meshFileName,normalsFileName,holesFileName,imageSize);
+[lines_all,lines_rv,lines_occ] = meshLineDrawing(P,meshFileName,normalsFileName,holesFileName,imageSize,BIN_LINE);
 lines_rv = mean(double(lines_rv),3)/255;
 lines_occ = mean(double(lines_occ),3)/255;
 

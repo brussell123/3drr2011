@@ -19,6 +19,8 @@ addpath(SRC_PB);
 addpath(SRC_PATH);
 
 BIN_RENDER = fullfile(SRC_PATH,'LIBS/GenerateLambertian/generate_colored');
+BIN_LINE = fullfile(SRC_PATH,'LIBS/GenerateLambertian/rtsc');
+% $$$ BIN_LINE = '~/work/Archaeology/MeshCode/LineDrawing/rtsc';
 
 % Painting 02:
 PAINTING_FNAME = './MathieuDense/painting02_down.jpg';
@@ -34,6 +36,15 @@ if size(imgPainting,3) ~= 3
 end
 imageSize = size(imgPainting);
 
+if 0
+%%% Run GPB: (Bryan: still working on this for now)
+addpath('/Users/brussell/work/Archaeology/ShapeContext/CodeToIntegrate/globalPb/lib');
+[gPb,theta,gPb_full] = RunGPB(imgPainting);
+% $$$ GPB_FNAME = './MathieuDense/gpb_painting02_down.mat';
+% $$$ save(GPB_FNAME,'gPb','theta','gPb_full');
+%%%
+end
+
 % Get painting features:
 [V2,xpaint,tpaint] = paintingFeatures_v3(GPB_FNAME);
 
@@ -43,7 +54,7 @@ end
 
 % Run Shape Context alignment:
 padVal = 0;
-[Pest,cost,out] = alignShapeContext_v7(V2,xpaint,tpaint,meshFileName,normalsFileName,holesFileName,P,padVal,imgPainting,OUTDIR);
+[Pest,cost,out] = alignShapeContext_v7(V2,xpaint,tpaint,meshFileName,normalsFileName,holesFileName,P,padVal,imgPainting,BIN_LINE,OUTDIR);
 
 % Display alignment:
 imgCol = meshGenerateColored(Pest,meshColoredFileName,imageSize,BIN_RENDER);

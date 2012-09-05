@@ -1,4 +1,4 @@
-function [P_final,cost_final,out] = alignShapeContext_v7(V2,xpaint,tpaint,meshFileName,normalsFileName,holesFileName,P,padVal,imgPainting,OUTDIR)
+function [P_final,cost_final,out] = alignShapeContext_v7(V2,xpaint,tpaint,meshFileName,normalsFileName,holesFileName,P,padVal,imgPainting,BIN_LINE,OUTDIR)
 % This function performs alignment using Shape Context.
 %
 % Inputs:
@@ -27,13 +27,13 @@ inlierThreshPct = 0.005; % Ransac inlier threshold (fraction of image diag)
 % Get edge orientation bins:
 angBins = linspace(0,pi,Norient+1);
 
-if nargin >= 9
+if nargin >= 10
   do_display = 1;
 % $$$   figure;
   clf;
   drawnow;
 end
-if nargin < 10
+if nargin < 11
   OUTDIR = [];
 end
 
@@ -70,7 +70,7 @@ for ii = 1:Niter
   display(sprintf('Alignment iteration: %d',ii));
 
   % Get 3D model features:
-  [V1,xmodel,tmodel,isRV,Xdense] = meshFeatures(Pstart,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize);
+  [V1,xmodel,tmodel,isRV,Xdense] = meshFeatures(Pstart,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize,BIN_LINE);
 
   % Get current dense match cost:
   cost_start = matchingCost(Pstart,Xdense,tmodel,mapPainting,inlierThresh);
@@ -282,7 +282,7 @@ for ii = 1:Niter
 end
 
 % Get cost for final camera matrix:
-[V1,xmodel,tmodel,isRV,Xdense] = meshFeatures(Pstart,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize);
+[V1,xmodel,tmodel,isRV,Xdense] = meshFeatures(Pstart,vertices,faces,meshFileName,normalsFileName,holesFileName,imageSize,BIN_LINE);
 cost_start = matchingCost(Pstart,Xdense,tmodel,mapPainting,inlierThresh);
 if cost_start < cost_previous_iteration
   P_previous_iteration = Pstart;

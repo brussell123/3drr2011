@@ -1,4 +1,4 @@
-function [imgLines,imgLines_rv,imgLines_occ] = meshLineDrawing(P,meshFileName,normalsFileName,holesFileName,imageSize,lineType,BIN_PATH)
+function [imgLines,imgLines_rv,imgLines_occ] = meshLineDrawing(P,meshFileName,normalsFileName,holesFileName,imageSize,BIN_PATH,lineType)
 % Inputs:
 % P - Camera matrices.
 % meshFileName - Path to mesh PLY file.
@@ -10,13 +10,9 @@ function [imgLines,imgLines_rv,imgLines_occ] = meshLineDrawing(P,meshFileName,no
 % imgLines - Line drawing images.
 
 if nargin < 7
-  BIN_PATH = '~/work/Archaeology/MeshCode/LineDrawing/rtsc';
-% $$$   BIN_PATH = '~/work/Archaeology/LineDrawing/rtsc-1.5/rtsc';
-end
-if nargin < 6
   lineType = 'all';
 end
-if nargin < 5
+if nargin < 6
   error('This function has been updated.  Please include pointer to holes.');
 end
 

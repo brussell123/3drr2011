@@ -16,6 +16,9 @@ NEEDED LIBRARIES:
 1. libjpeg on mac:
 http://ethan.tira-thompson.com/Mac_OS_X_Ports.html
 
+2. GlobalPB:
+http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/gpb/
+
 
 
 ***********************************************************************

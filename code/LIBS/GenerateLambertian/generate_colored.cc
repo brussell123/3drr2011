@@ -428,7 +428,9 @@ void redraw()
 	}
 
 	glPopMatrix();
-	glutSwapBuffers();
+
+        // For some reason, this line causes problems on Mac Lion:
+// 	glutSwapBuffers();
 	printf("\r                        \r%.1f msec.", 1000.0f * (now() - t));
 	fflush(stdout);
 }

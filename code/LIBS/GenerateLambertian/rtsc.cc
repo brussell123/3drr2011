@@ -2086,7 +2086,9 @@ void redraw()
 	glPopMatrix();
 
 	glDisable(GL_SCISSOR_TEST);
-	glutSwapBuffers();
+
+        // For some reason, this line causes problems on Mac Lion:
+// 	glutSwapBuffers();
 	printf("\rElapsed time: %.2f msec.", 1000.0f * (now() - t));
 	fflush(stdout);
 
@@ -2620,7 +2622,9 @@ void reshape(int x, int y)
 {
 	GLUI_Master.auto_set_viewport();
 	cls();
-	glutSwapBuffers();
+
+        // For some reason, this line causes problems on Mac Lion:
+// 	glutSwapBuffers();
 	need_redraw();
 }
 

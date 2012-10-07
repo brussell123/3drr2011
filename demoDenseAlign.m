@@ -11,16 +11,19 @@ normalsFileName = './MathieuDense/normal_smooth_12_pompeii_large66_sample_0.1_po
 holesFileName = './MathieuDense/pompeii_large66_sample_0.1_poisson_depth_14_clean_holes.txt';
 meshColoredFileName = './MathieuDense/pompeii_large66_sample_0.1_poisson_depth_14_clean_colored.ply';
 
+CACHE_DIR = './cache';
+
 % Output directory:
-OUTDIR = './cache/DenseAlign';
+OUTDIR = fullfile(CACHE_DIR,'DenseAlign');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath(SRC_PB);
+
+addpath(fullfile(SRC_PATH,'LIBS/globalPb/lib'));
 addpath(SRC_PATH);
 
 BIN_RENDER = fullfile(SRC_PATH,'LIBS/GenerateLambertian/generate_colored');
 BIN_LINE = fullfile(SRC_PATH,'LIBS/GenerateLambertian/rtsc');
-% $$$ BIN_LINE = '~/work/Archaeology/MeshCode/LineDrawing/rtsc';
 
 % Painting 02:
 PAINTING_FNAME = './MathieuDense/painting02_down.jpg';
@@ -39,7 +42,8 @@ imageSize = size(imgPainting);
 if 0
 %%% Run GPB: (Bryan: still working on this for now)
 addpath('/Users/brussell/work/Archaeology/ShapeContext/CodeToIntegrate/globalPb/lib');
-[gPb,theta,gPb_full] = RunGPB(imgPainting);
+BIN_SEGMENT = fullfile(SRC_PATH,'LIBS/globalPb/lib/segment');
+[gPb,theta,gPb_full] = RunGPB(imgPainting,BIN_SEGMENT);
 % $$$ GPB_FNAME = './MathieuDense/gpb_painting02_down.mat';
 % $$$ save(GPB_FNAME,'gPb','theta','gPb_full');
 %%%

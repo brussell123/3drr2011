@@ -56,6 +56,17 @@ try
   mex minAssign.cpp
   cd(homedir);
 
+  % Compile gPB:
+  cd('./code/LIBS/gpb_src');
+  system('make');
+  system('make matlab');
+  system('cp ./matlab/segmentation/*.mexmaci ../globalPb/lib/');
+  cd(homedir);
+  cd('./code/LIBS/BSE-1.2');
+  system('make -f Makefile.gcc segment');
+  system('cp ./segment ../globalPb/lib/');
+  cd(homedir);
+  
 catch
   cd(homedir);
 end

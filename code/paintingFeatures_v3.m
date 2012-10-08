@@ -1,4 +1,4 @@
-function [V,x,t] = paintingFeatures_v3(gpb_fname)
+function [V,x,t] = paintingFeatures_v3(imgPainting,BIN_SEGMENT,CACHE_DIR)
 % Inputs:
 % gpb_fname
 %
@@ -11,16 +11,14 @@ function [V,x,t] = paintingFeatures_v3(gpb_fname)
 Nang = 8; % Number of gpb orientation angles
 threshResponse = 0.05; % gpb response threshold
 
-% $$$ gpb_fname = GPB_FNAME;
+[gPb,theta,gPb_full] = RunGPB(imgPainting,BIN_SEGMENT,CACHE_DIR);
 
-ss = load(gpb_fname);
-
-V = zeros(size(ss.gPb));
-Vt = zeros(size(ss.gPb));
+V = zeros(size(gPb));
+Vt = zeros(size(gPb));
 for i = 1:Nang
   j = mod([i-1 i i+1]-1,Nang)+1;
-  nn = (ss.gPb>=threshResponse)&(ismember(ss.theta,j));
-  mm = (ss.gPb>=threshResponse)&(ss.theta==i);
+  nn = (gPb>=threshResponse)&(ismember(theta,j));
+  mm = (gPb>=threshResponse)&(theta==i);
   
   L = bwlabel(nn);
   h = hist(L(:),0:max(L(:)));

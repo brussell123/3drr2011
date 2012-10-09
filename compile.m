@@ -54,6 +54,7 @@ try
   mex rayTrace.cpp
   mex updateDepths.cpp
   mex minAssign.cpp
+  mex mex_connectedComponentsMesh.cpp
   cd(homedir);
 
   % Compile gPB:

@@ -4,11 +4,13 @@
 % Change these paths:
 SRC_PATH = './code';
 
+HOME_PAINTINGS = './Paintings';
+
 % 3D model information:
-meshFileName = './MathieuDense/pompeii_large66_sample_0.1_poisson_depth_14_clean.ply';
-normalsFileName = './MathieuDense/normal_smooth_12_pompeii_large66_sample_0.1_poisson_depth_14_clean.ply';
-holesFileName = './MathieuDense/pompeii_large66_sample_0.1_poisson_depth_14_clean_holes.txt';
-meshColoredFileName = './MathieuDense/pompeii_large66_sample_0.1_poisson_depth_14_clean_colored.ply';
+meshFileName = './pompeii_large66_sample_0.1_poisson_depth_14_clean.ply';
+normalsFileName = './normal_smooth_12_pompeii_large66_sample_0.1_poisson_depth_14_clean.ply';
+holesFileName = './pompeii_large66_sample_0.1_poisson_depth_14_clean_holes.txt';
+meshColoredFileName = './pompeii_large66_sample_0.1_poisson_depth_14_clean_colored.ply';
 
 % Output directory:
 OUTDIR = './cache/DenseAlignResults';
@@ -23,7 +25,7 @@ BIN_LINE = fullfile(SRC_PATH,'LIBS/GenerateLambertian/rtsc');
 BIN_SEGMENT = fullfile(SRC_PATH,'LIBS/globalPb/lib/segment');
 
 % Painting 02:
-PAINTING_FNAME = './MathieuDense/painting02_down.jpg';
+PAINTING_FNAME = fullfile(HOME_PAINTINGS,'painting02_down.jpg');
 
 % Camera matrix from scene retrieval:
 P = [105.833313 286.452148 -745.784668 -514.688416; 420.080933 675.605957 223.371887 -215.732361; 0.972418 -0.089354 -0.215453 -0.719108];

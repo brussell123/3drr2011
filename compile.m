@@ -59,6 +59,13 @@ try
 
   % Compile gPB:
   cd('./code/LIBS/gpb_src');
+  fp = fopen('Rules.make.preset','r');
+  str = fread(fp,inf,'uint8=>char')';
+  fclose(fp);
+  str = regexprep(str,'SET_THIS',matlabroot);
+  fp = fopen('Rules.make','w');
+  fwrite(fp,str);
+  fclose(fp);
   system('make');
   system('make matlab');
   system('cp ./matlab/segmentation/*.mexmaci ../globalPb/lib/');
